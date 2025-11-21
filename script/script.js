@@ -7,7 +7,9 @@ const selKinderen = document.querySelector("#kinderen")
 const LijstGeschenken = document.querySelector("#geschenkenlijst")
 const btnKindToevoegen = document.querySelector("#voegKind")
 const btnKindVerwijder = document.querySelector("#verwijderKind")
-const selGeschenken = document.querySelector("geschenken")
+const selGeschenken = document.querySelector("#geschenken")
+const selGeschenken2 = document.querySelector("#geschenken2")
+
 
 
 //kinderen in select
@@ -33,7 +35,16 @@ fetch("https://o-apiandclient-render.onrender.com/geschenken")
             selGeschenken.appendChild(newOption)
         })
     })
-
+fetch("https://o-apiandclient-render.onrender.com/geschenken")
+    .then((info)=>info.json())
+    .then((geschenken)=>{
+        geschenken.forEach((geschenk)=>{
+            const newOption = document.createElement("option");
+            newOption.value = geschenk.id
+            newOption.innerHTML = geschenk.naam;
+            selGeschenken2.appendChild(newOption)
+        })
+    })
 
 selKinderen.addEventListener("change", (e)=>{
     //haal de geselecteerde id
@@ -44,11 +55,12 @@ selKinderen.addEventListener("change", (e)=>{
         .then((geschenk)=>{
             LijstGeschenken.innerHTML = ""
             const newLi = document.createElement("li")
-            newLi.innerHTML = geschenk.voornaam
+            newLi.innerHTML = geschenk.fullGeschenk.naam
             LijstGeschenken.appendChild(newLi)
             
         })
 })
+
 
 //toeveogen kind
 btnKindToevoegen.addEventListener()
