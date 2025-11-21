@@ -7,7 +7,7 @@ const selKinderen = document.querySelector("#kinderen")
 const LijstGeschenken = document.querySelector("#geschenkenlijst")
 const btnKindToevoegen = document.querySelector("#voegKind")
 const btnKindVerwijder = document.querySelector("#verwijderKind")
-const selGeschenken = document.querySelector("")
+const selGeschenken = document.querySelector("geschenken")
 
 
 //kinderen in select
@@ -21,6 +21,19 @@ fetch("https://o-apiandclient-render.onrender.com/kinderen")
             selKinderen.appendChild(newOption)
         })
     })
+
+//geschenken in select
+fetch("https://o-apiandclient-render.onrender.com/geschenken")
+    .then((info)=>info.json())
+    .then((geschenken)=>{
+        geschenken.forEach((geschenk)=>{
+            const newOption = document.createElement("option");
+            newOption.value = geschenk.id
+            newOption.innerHTML = geschenk.naam;
+            selGeschenken.appendChild(newOption)
+        })
+    })
+
 
 selKinderen.addEventListener("change", (e)=>{
     //haal de geselecteerde id
