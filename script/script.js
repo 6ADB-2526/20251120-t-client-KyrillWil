@@ -5,6 +5,11 @@
 //kopelling met html
 const selKinderen = document.querySelector("#kinderen")
 const LijstGeschenken = document.querySelector("#geschenkenlijst")
+const btnKindToevoegen = document.querySelector("#voegKind")
+const btnKindVerwijder = document.querySelector("#verwijderKind")
+const selGeschenken = document.querySelector("")
+
+
 //kinderen in select
 fetch("https://o-apiandclient-render.onrender.com/kinderen")
     .then((info)=>info.json())
@@ -20,14 +25,33 @@ fetch("https://o-apiandclient-render.onrender.com/kinderen")
 selKinderen.addEventListener("change", (e)=>{
     //haal de geselecteerde id
     console.log(e.target.value);
-    //
-    fetch("https://o-apiandclient-render.onrender.com/kinderen" + e.target.value)
-        .then(info => info.json())
+    //display de geschenken
+    fetch("https://o-apiandclient-render.onrender.com/kinderen/" + e.target.value)
+        .then((info) => info.json())
         .then((geschenk)=>{
             LijstGeschenken.innerHTML = ""
-            const newLi = document.querySelector("li")
-            newLi.innerHTML = geschenk.geschenkId
+            const newLi = document.createElement("li")
+            newLi.innerHTML = geschenk.voornaam
             LijstGeschenken.appendChild(newLi)
+            
+        })
+})
+
+//toeveogen kind
+btnKindToevoegen.addEventListener()
+
+
+
+//verwijderen kind
+btnKindVerwijder.addEventListener("click", (e)=>{
+    const id = selKinderen.value
+    const option = {
+        method : "DELETE"
+    }
+    fetch("https://o-apiandclient-render.onrender.com/kinderen/" + id, option)
+        .then((info)=>info.json())
+        .then((kind)=>{
+            console.log(kind);
             
         })
 })
